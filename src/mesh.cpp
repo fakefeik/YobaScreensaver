@@ -5,31 +5,6 @@ Mesh::Mesh() {
 
 }
 
-Mesh::Mesh(std::vector<glm::vec3> vertices, std::vector<unsigned short> indices) {
-	glGenBuffers(1, &vertexBuffer);
-	glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
-	glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(glm::vec3), &vertices[0], GL_STATIC_DRAW);
-	uvBuffer = -1;
-}
-
-Mesh::Mesh(float vertices[], unsigned int indices[], float uvs[], const char *texturepath) {
-
-}
-
-Mesh::Mesh(std::string name, 
-		   float vertices[], int vertCount, 
-		   int indices[], int indCount, 
-		   float uvs[], int uvCount,
-		   glm::vec3 position, glm::vec3 rotation, glm::vec3 scaling) {
-	this->name = name;
-	this->position = position;
-	this->rotation = rotation;
-	this->scaling = scaling;
-	SetVertices(vertices, vertCount);
-	SetIndices(indices, indCount);
-	SetTextureCoordinates(uvs, uvCount);
-}
-
 void Mesh::Draw() {
 	glEnableVertexAttribArray(0);
 	glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
@@ -45,7 +20,7 @@ void Mesh::Draw() {
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBuffer);
 	glDrawElements(GL_TRIANGLES, indicesCount, GL_UNSIGNED_INT, (void*)0);
 
-	glDisableVertexAttribArray(0);
+	//glDisableVertexAttribArray(0);
 }
 
 void Mesh::DrawWireframe() {
@@ -67,8 +42,8 @@ void Mesh::SetVertices(float vertices[], int verticesCount) {
 
 void Mesh::SetIndices(int indices[], int indicesCount) {
 	glGenBuffers(1, &indexBuffer);
-	glBindBuffer(GL_ARRAY_BUFFER, indexBuffer);
-	glBufferData(GL_ARRAY_BUFFER, indicesCount, &indices[0], GL_STATIC_DRAW);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBuffer);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indicesCount, &indices[0], GL_STATIC_DRAW);
 	this->indicesCount = indicesCount;
 	SetLineIndices(indices);
 }

@@ -1,10 +1,6 @@
 #include "mesh.h"
 
 Cube::Cube() {
-
-}
-
-Cube::Cube(float width, float height, float depth) {
 	textureID = -1;
 	uvBuffer = -1;
 

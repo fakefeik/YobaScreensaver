@@ -1,6 +1,4 @@
 #include "shader.h"
-#include <string>
-#include <fstream>
 
 using namespace std;
 
@@ -16,8 +14,8 @@ void Shader::init() {
 	shader_vp = glCreateShader(GL_VERTEX_SHADER);
 	shader_fp = glCreateShader(GL_FRAGMENT_SHADER);
 
-	const char *vertexText = "#version 330 core\nlayout(location = 0) in vec3 vertexPosition_modelspace;layout(location = 1) in vec2 vertexUV;out vec2 UV;uniform mat4 MVP;void main() {gl_Position = MVP * vec4(vertexPosition_modelspace, 1);UV = vertexUV;}";
-	const char *fragmentText = "#version 330 core\nin vec2 UV;out vec4 color;uniform sampler2D tex;void main() {color = texture(tex, UV);}";
+	const char *vertexText = "#version 330 core\nlayout(location = 0) in vec3 vertexPosition_modelspace;layout(location = 1) in vec2 vertexUV;out vec2 UV;uniform mat4 uMMatrix;uniform mat4 uVMatrix;uniform mat4 uPMatrix;void main() {gl_Position = uPMatrix * uVMatrix * uMMatrix * vec4(vertexPosition_modelspace, 1);UV = vertexUV;}";
+	const char *fragmentText = "#version 330 core\nin vec2 UV;out vec4 color;uniform sampler2D uTexture;void main() {color = texture(uTexture, UV);}";
 	if (vertexText == NULL || fragmentText == NULL) {
 		cout << "Either vertex shader or fragment shader file not found." << endl;
 		return;

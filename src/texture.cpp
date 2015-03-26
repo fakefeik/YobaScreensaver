@@ -10,7 +10,7 @@ GLuint loadBMP_custom() {
 	unsigned int width, height;
 	unsigned int imageSize;
 	unsigned char * data;
-
+	
 	dataPos = *(int*)&(header[0x0A]);
 	imageSize = *(int*)&(header[0x22]);
 	width = *(int*)&(header[0x12]);
