@@ -48,7 +48,7 @@ int main(void) {
 	}
 	glfwMakeContextCurrent(window);
 	glfwSetCursorPosCallback(window, (GLFWcursorposfun)callback_f);
-
+	glfwSwapInterval(1);
 	glewExperimental = true;
 	if (glewInit() != GLEW_OK) {
 		fprintf(stderr, "Failed to initialize GLEW.\n");
